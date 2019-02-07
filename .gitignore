@@ -1,0 +1,7 @@
+node_modules/
+app/config/_local_var.js
+logs/
+.env
+app/tmpFiles/*
+.DS_Store
+tmp/
