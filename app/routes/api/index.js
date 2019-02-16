@@ -43,6 +43,10 @@ exports = module.exports = (app) => {
   app.route(route.post)
     .get(authorization.authCheck, posts.info);
 
+  //get posts inside child bucket
+  app.route(route.postInsideBucket)
+    .get(authorization.authCheck, posts.postsInsideBucket)
+
   //add post with image
   app.route(route.addPostWithImage)
     .post(authorization.authCheck, posts.addWithImage);

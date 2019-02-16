@@ -41,7 +41,7 @@ module.exports.addSpecificReminder = async (req, res) => {
     new_body.user_id = user_id;
 
     const currentDate = moment().format('YYYY-MM-DD');
-    const currentTime = moment().format('hh:mm a');
+    const currentTime = moment().format('HH:mm');
     //check for any missing values
     await addModule.init(req.request_id, new_body);
     await addModule.checkIfDaysAreaValid(req.request_id, days);
@@ -55,6 +55,8 @@ module.exports.addSpecificReminder = async (req, res) => {
       new_body.day = days[i]; 
       let result = addDaysAndTime(currentDate, selected_day_as_num, moment().day(), new_body.type);
       let date  = moment(result.date).format('YYYY-MM-DD');
+      
+      const utc_time = moment.utc(`${date} ${time}`).valueOf();
       new_body.reminder_date = date;
       new_body.reminder_time = time;
 
@@ -71,10 +73,11 @@ module.exports.addSpecificReminder = async (req, res) => {
         reminder_date: new_body.reminder_date,
         reminder_time: new_body.reminder_time,
         user_id: new_body.user_id,
+        reminder_timestamp_utc: utc_time
       }
 
       
-      //insert first reminder into reminder table
+      // insert first reminder into reminder table
       const reminder_id = await addModule.insertIntoRemindersTable(req.request_id, reminder_body);
     }
     response.success(req.request_id, {bucket_id}, res);
@@ -165,19 +168,43 @@ function addDaysAndTime(currentDate, reminderDay, currentDay, type) {
 //get post information
 // with user_id, get the email information of the user
 // store all information in reminders table
-const generatePosts =  async (request_id, data) => {
-
-  let new_body = data;
-  const bucket_id = await postGeneration.pickRandomBucket(request_id, new_body);
-  new_body.random_bucket_id_selected = bucket_id;
+const generatePosts = (request_id, data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let new_body = data;
+    
+      await postGeneration.validation(request_id, new_body);
   
-  const post = await postGeneration.pickRandomPost(request_id, new_body);
-  new_body.post_id = post.post_id;
-  // new_body.post_content = post.content;
+      const is_parent = await postGeneration.checkIfParentBucket(request_id, new_body);
+      if(is_parent) {
+        let bucket_id = await postGeneration.pickRandomBucket(request_id, new_body);
+        new_body.random_bucket_id_selected = bucket_id;
+      } else {
+        new_body.random_bucket_id_selected = new_body.bucket_id;
+      }
 
-  const email = await postGeneration.getUserInformation(request_id, new_body);
-  new_body.email = email; 
-
-  return new_body;
-
+      let isPost = await postGeneration.checkIfPostExistInsideBucket(request_id, new_body);
+  
+      if(!isPost && !is_parent) {
+        reject({code: 103.1, custom_message: 'No post inside bucket to generate reminder'});
+      }
+  
+      while(!isPost) {
+        bucket_id = await postGeneration.pickRandomBucket(request_id, new_body);
+        new_body.random_bucket_id_selected = bucket_id;
+        isPost = await postGeneration.checkIfPostExistInsideBucket(request_id, new_body);
+      }
+  
+      const post = await postGeneration.pickRandomPost(request_id, new_body);
+      new_body.post_id = post.post_id;
+      // new_body.post_content = post.content;
+  
+      const email = await postGeneration.getUserInformation(request_id, new_body);
+      new_body.email = email; 
+  
+      resolve(new_body);
+    } catch(e) {
+      reject({ code: 103, message: { message: e.message, stack: e.stack } });
+    }
+  })
 }

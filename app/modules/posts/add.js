@@ -47,6 +47,17 @@ module.exports.validation = (request_id, data) => {
   })
 }
 
+module.exports.imageValidation = (request_id, data) => {
+  return new Promise((resolve, reject) => {
+    if(data.fileName != ''){
+      logger.info(request_id, data.user_id);
+      resolve();
+    } else {
+      reject({ code: 103, message: 'Attributes validation incorrect. Not UUID' });
+    }
+  })
+}
+
 module.exports.checkIfBucketExists = (request_id, data) => {
   return new Promise(async (resolve, reject) => {
     const query = `SELECT * FROM buckets WHERE user_id_added_by = ? AND bucket_id = ?;`;
@@ -55,7 +66,7 @@ module.exports.checkIfBucketExists = (request_id, data) => {
       if(result.length > 0) {
           resolve();
       } else {
-        reject({ code: 103, custom_message: 'No buckets with this bucket id or with the user id.' })
+        reject({ code: 103, custom_message: 'No bucket with that bucket_id for this user.' })
       }
     } catch (e) {
       reject({ code: 103, message: { message: e.message, stack: e.stack } });
@@ -131,7 +142,7 @@ module.exports.insertIntoPostsTableWithImage = (request_id, payload) => {
       user_id : payload.user_id, 
       bucket_id : payload.bucket_id,
       type : 'image',
-      content  : null,
+      content  : null, //content will be the post_id.
       description : null
     }
 

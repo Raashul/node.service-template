@@ -5,17 +5,20 @@ const aws = require('aws-sdk');
 const s3 = require(__base + '/app/init/aws').getS3();
 const config = require(__base + '/app/config/config');
 
+let fileName = '';
+
 
 const upload = multer({
   storage: multerS3({
     s3: s3,
     bucket: config.aws.s3.postImageBucket,
-    // acl: 'public-read',
+    ACL: 'public-read',
     metadata:  (req, file, cb) => {
       cb(null, {fieldName: file.fieldname});
     },
     key: (req, file, cb) =>  {
-      cb(null, `images/${req.authInfo.user_id}/${req.temp.post_id}/${Date.now().toString()}-${file.originalname}`)
+      //fileName = `${Date.now().toString()}-${file.originalname}`;
+      cb(null, `images/${req.authInfo.user_id}/${req.temp.post_id}`)
     }
   }),
   fileFilter: (req, file, cb) => {
@@ -28,4 +31,8 @@ const upload = multer({
   }
 })
 
+
+
 module.exports = upload;
+
+

@@ -58,7 +58,6 @@ module.exports.specificReminderInit = (request_id, data) => {
       ) {
         resolve();
     } else {
-        console.log('resolving');
         reject({ code: 103.1, custom_message: 'Missing parent attribute.' });
     }
   })
@@ -85,7 +84,6 @@ module.exports.specificReminderInit = (request_id, data) => {
 
 module.exports.insertIntoConfigTable = (request_id, data) => {
   return new Promise(async (resolve, reject) => {
-    console.log(data);
     const {number_of_posts, day, reminder_time, bucket_id, type, sub_type, user_id, bucket_name} = data;
     const config_id = uuid();
 
@@ -121,7 +119,7 @@ module.exports.insertIntoRemindersTable = (request_id, data) => {
     const query = `INSERT INTO reminders SET ?;`;
 
     const reminder_id = uuid();
-    const { config_id, bucket_id, post_id, user_id, email, reminder_date, reminder_time } = data;
+    const { config_id, bucket_id, post_id, user_id, email, reminder_date, reminder_time, reminder_timestamp_utc } = data;
     const query_body = {
       reminder_id,
       config_id,
@@ -130,7 +128,8 @@ module.exports.insertIntoRemindersTable = (request_id, data) => {
       user_id, 
       email, 
       reminder_date,
-      reminder_time
+      reminder_time,
+      reminder_timestamp_utc
     };
 
     try {

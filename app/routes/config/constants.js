@@ -9,6 +9,7 @@ const routes = {
   bucket: '/api/bucket',
   childBuckets: '/api/buckets/child',
   bucketByType :  '/api/buckets/type',
+  postInsideBucket: '/api/posts/bucket',
   post: '/api/post',
   addPostWithText: '/api/post/add/text',
   addPostWithImage: '/api/post/add/image',
