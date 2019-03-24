@@ -35,5 +35,4 @@ Beta releasing soon!
 
 <img src ='./images/readMore.png' width="60%" height="40%" />
 
-</br>
 
