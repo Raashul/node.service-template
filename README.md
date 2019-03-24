@@ -23,16 +23,17 @@ Services:
 -
 Actual project is private and latest version is private
 
+Beta releasing soon!
+
 -
 
-<img src ='./images/home.png' width="60%" height="40%" />
+<img src ='./images/home.jpeg' width="60%" height="40%" />
 
-<img src ='./images/bucket.png' width="60%" height="40%" />
+<img src ='./images/createBucket.png' width="60%" height="40%" />
 
-<img src ='./images/post.png' width="60%" height="40%" />
+<img src ='./images/posts.png' width="60%" height="40%" />
 
 <img src ='./images/readMore.png' width="60%" height="40%" />
 
 </br>
 
-Actual project and latest version is private.
