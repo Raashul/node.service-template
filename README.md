@@ -7,6 +7,10 @@ To start server:
 
 --
 
+App to digitize your book/article highlights and send reminders(weekly, daily, specific)
+
+--
+
 Micro-service architecture.
 
 Services:
@@ -27,7 +31,9 @@ Beta releasing soon!
 
 -
 
-<img src ='./images/home.jpeg' width="60%" height="40%" />
+<img src ='./images/home.png' width="60%" height="40%" />
+
+<img src ='./images/addIcon.jpeg' width="60%" height="40%" />
 
 <img src ='./images/createBucket.png' width="60%" height="40%" />
 
@@ -35,4 +41,5 @@ Beta releasing soon!
 
 <img src ='./images/readMore.png' width="60%" height="40%" />
 
+<img src ='./images/reminders.png' width="60%" height="40%" />
 
