@@ -1,13 +1,6 @@
-
-Add `.env` file in root path.
-
-To start server:
-
-`npm start`
-
 --
 
-App to digitize your book/article highlights and send reminders(weekly, daily, specific)
+App to digitize our book/article highlights and send reminders(weekly, daily, specific)
 
 --
 
@@ -18,16 +11,18 @@ Services:
 -node.service-notification </br>
 -node.service-reminder </br>
 -node.service-user </br>
+-node.service-refer </br>
 
 </br>
 -node.service-user - CRUD users, posts, buckets and reminders. Image is stored in Amazon S3 bucket </br>
 -node.service-notification - to send emails through Amazon SES </br>
 -node.service-reminder - to run cron job to find reminders and generate post for reminders </br>
+-node.service-reminder - to send refers for 1st release </br>
 
 -
 Actual project is private and latest version is private
 
-Beta releasing soon!
+Releasing soon!
 
 -
 
