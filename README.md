@@ -25,14 +25,13 @@ Actual project is private and latest version is private
 Releasing soon!
 
 -
+<img src ='./images/signup.jpeg' width="50%" height="30%" />
 
-<img src ='./images/login.png' width="50%" height="30%" />
+<img src ='./images/login.jpeg' width="50%" height="30%" />
 
 <img src ='./images/home.png' width="50%" height="30%" />
 
 <img src ='./images/addIcon.png' width="50%" height="30%" />
-
-<img src ='./images/createBucket.png' width="50%" height="30%" />
 
 <img src ='./images/posts.png' width="50%" height="30%" />
 
@@ -40,4 +39,6 @@ Releasing soon!
 
 <img src ='./images/reminders.png' width="50%" height="30%" />
 <img src ='./images/settings.png' width="50%" height="30%" />
+<img src ='./images/refer.jpeg' width="50%" height="30%" />
+<img src ='./images/referemail.jpg' width="50%" height="30%" />
 
