@@ -1,9 +1,3 @@
---
-
-App to digitize our book/article highlights and send reminders(weekly, daily, specific)
-
---
-
 Micro-service architecture.
 
 Services:
